@@ -1,13 +1,13 @@
-const readline = require('readline');
+const readline = require("readline");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+  input: process.stdin,
+  output: process.stdout
 });
 
-rl.question('Masukkan nama: ', (name) => {
-    rl.question('Masukkan jabatan: ', (jabatan) => {
-        console.info('Nama: ' + name + '\n' + 'Jabatan: ' + jabatan);
-        rl.close();
-    });
+rl.question("Masukkan nama anda :", (name) => {
+  rl.question("Masukkan jabatan anda :", (jabatan) => {
+    console.info("Nama anda :" + name + "\n" + "Jabatan anda :" + jabatan);
+    rl.close();
+  });
 });
