@@ -34,8 +34,8 @@ function saveContact(name, email, mobile) {
   rl.close();
 }
 
-function readJsonFile(filePath) {
-  const file = fs.readFileSync(filePath, "utf8");
+function readJsonFile(dataPath) {
+  const file = fs.readFileSync(dataPath, "utf8");
   return JSON.parse(file);
 }
 
