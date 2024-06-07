@@ -1,6 +1,5 @@
 const fs = require("fs");
 const readline = require("readline");
-const validator = require("validator");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -19,33 +18,24 @@ if(!fs.existsSync(dataPath)) {
   fs.writeFileSync(dataPath, "[]", "utf8");
 }
 
-// output
-rl.question("What is your name bro?", (name) => {
-  rl.question("Your number mobile? (format: 08xx xxxx xxxx)", (mobile) => {
-
-    // validasi for number mobile
-    if(validator.isMobilePhone(mobile, 'id-ID')){
-      rl.question("Your Email?", (email) => {
-
-        // validasi for email
-        if(validator.isEmail(email)) {
-          const contact = {name, mobile, email};
-          const file = fs.readFileSync(dataPath, "utf-8");
-          const contacts = JSON.parse(file);
-          contacts.push(contact);
-          fs.writeFileSync(dataPath, JSON.stringify(contacts));
-          console.log("Thank you!");
-
-          // if the email is not correct
-        } else {
-          console.log("your email is not correct");
-          rl.close();
-        }
-      });
-      // if the number is not correct
-    } else {
-      console.log("your number is not correct, example (08xx xxxx xxxx)");
-      rl.close();
-    }
+// make a function to ask
+const questions = (ask) => {
+  return new Promise((resolve, reject) => {
+    rl.question(ask, (inputVariable) => {
+      resolve(inputVariable);
+    });
   });
-});
+}
+
+// save data contact
+const saveContact = (name, email, mobile) => {
+  const contact = {name, email, mobile};
+  const file = fs.readFileSync("data/contacts.json", "utf-8");
+  const contacts = JSON.parse(file);
+  contacts.push(contact);
+  fs.writeFileSync("data/contacts.json", JSON.stringify(contacts));
+  console.log("Thank you!");
+  rl.close();
+}
+
+module.exports = {questions, saveContact};
