@@ -40,7 +40,7 @@ function readJsonFile(dataPath) {
 }
 
 function nameExist(contacts, name) {
- return contacts.some(contact => contact.name === name);
+ return contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase());
 }
 
 module.exports = {
