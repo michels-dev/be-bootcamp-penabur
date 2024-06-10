@@ -26,6 +26,7 @@ function question(questions) {
   });
 }
 
+// create data contact
 function saveContact(name, email, mobile) {
   const contact = { name, email, mobile };
   const file = fs.readFileSync(dataPath, "utf8");
@@ -54,6 +55,60 @@ function saveContact(name, email, mobile) {
   rl.close();
 }
 
+// update data contact
+function updateData(name,newContact) {
+  const contact = readJsonFile(dataPath);
+  const index = contact.findIndex(contact => contact.name.toLowerCase() === name.toLowerCase());
+  if(index == -1) {
+    console.log("name not found");
+    return;
+  }
+  if (newContact.email && !validator.isEmail(newContact.email)) {
+    console.log("your email is not correct.");
+    rl.close();
+    return;
+  }
+  if (newContact.mobile && !validator.isMobilePhone(newContact.mobile, "id-ID")) {
+    console.log("your number is not correct.");
+    rl.close();
+    return;
+  }
+
+  const existingContact = contact[index];
+  contact[index] = { ...existingContact, ...newContact };
+
+  fs.writeFileSync(dataPath, JSON.stringify(contact, null, 2));
+  console.log("update done");
+  rl.close();
+}
+
+// delete data contact
+function deleteData (name) {
+  const contact = readJsonFile(dataPath);
+  if (!contact.some(contact => contact.name.toLowerCase() === name.toLowerCase())) {
+    console.log(`your name "${name}" NOT exists.`);
+    rl.close();
+    return;
+  }
+  const deleteData = contact.filter(contact => contact.name.toLowerCase() !== name.toLowerCase())
+  fs.writeFileSync(dataPath, JSON.stringify(deleteData, null, 2));
+  console.log("delete done");
+  rl.close();
+  return;
+}
+
+// list all data contact
+function listData(){
+  const contact = readJsonFile(dataPath);
+  console.log("list contact");
+
+  contact.forEach ((contacts, index) => {
+    console.log( index+1 + ". nama= " + contacts.name + " email=" + contacts.email + " phone=" + contacts.mobile)
+  });
+  rl.close();
+  return;
+}
+
 function readJsonFile(dataPath) {
   const file = fs.readFileSync(dataPath, "utf8");
   return JSON.parse(file);
@@ -63,5 +118,8 @@ module.exports = {
   question,
   saveContact,
   readJsonFile,
+  updateData,
+  deleteData,
+  listData,
   dataPath
 };
