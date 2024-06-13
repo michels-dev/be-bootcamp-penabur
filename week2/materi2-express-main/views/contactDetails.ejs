@@ -1,0 +1,35 @@
+<!-- <div>
+  <p class="text-5xl text-white lowercase font-bold mb-10">
+      <%= data.message %>
+  </p>
+  <div class="rounded-xl drop-shadow-2xl  bg-white p-10">
+      <p>
+          <%= data.contact.name %>
+      </p>
+      <p>
+          <%= data.contact.email %>
+      </p>
+      <p>
+          <%= data.contact.mobile %>
+      </p>
+  </div>
+</div> -->
+
+<section class="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply">
+  <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
+      <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl"><%= data.message %></h1>
+      <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
+        <div class="rounded-xl drop-shadow-2xl  bg-white p-10">
+          <p class="text-2xl">
+              <%= data.contact.name %>
+          </p>
+          <p class="text-2xl">
+              <%= data.contact.email %>
+          </p>
+          <p class="text-2xl">
+              <%= data.contact.mobile %>
+          </p>
+      </div>
+      </div>
+  </div>
+</section>

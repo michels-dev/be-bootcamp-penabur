@@ -1,0 +1,55 @@
+<!-- <div>
+  <p class="text-3xl  text-white lowercase font-bold mb-10">
+      <%= data.message %>
+  </p>
+
+  <div class="grid grid-cols-5 gap-4">
+      <% data.contact.forEach(contact=> { %>
+          <div class="bg-white rounded-lg shadow-md p-4 ">
+              <h2 class="text-xl  mb-2 font-medium">
+                  <%= contact.name %>
+              </h2>
+              <p class="mb-1">
+                  <%= contact.email %>
+              </p>
+              <p class="mb-4">
+                  <%= contact.mobile %>
+              </p>
+              <a href="/contact/<%= contact.id %>" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  View Details
+              </a>
+          </div>
+          <% }) %>
+  </div>
+</div> -->
+
+<!-- <p class="text-5xl text-black font-bold">
+  <%= data.message %>
+</p> -->
+<section class="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply">
+  <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
+      <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl"><%= data.message %></h1>
+      <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">HERE IS THE PAGE CONTACT BOOTCAMP TRAINING FOR BPK PENABUR JAKARTA.</p>
+      <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
+        <div class="grid grid-cols-5 gap-4">
+          <% data.contact.forEach(contact=> { %>
+              <div class="bg-white rounded-lg shadow-md p-4">
+                  <h2 class="text-xl  mb-2 font-medium">
+                      <%= contact.name %>
+                  </h2>
+                  <p class="mb-1">
+                      <%= contact.email %>
+                  </p>
+                  <p class="mb-4">
+                      <%= contact.mobile %>
+                  </p>
+                  <a href="/contact/<%= contact.id %>" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                      View Details
+                  </a>
+              </div>
+              <% }) %>
+      </div>
+      </div>
+  </div>
+</section>
+
