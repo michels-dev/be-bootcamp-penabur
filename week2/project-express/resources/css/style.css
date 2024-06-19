@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dt-search{
+  width:fit-content!important;
+}
+
+#dataTables_wrapper .grid .justify-self-end{
+  display: flex !important;
+  justify-content: end !important;
+}

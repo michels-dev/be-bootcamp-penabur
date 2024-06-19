@@ -3,6 +3,9 @@ const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 const pool = require('./database/db'); // import the pool
+const validator = require('validator');
+const flash = require('req-flash');
+const session = require('express-session');
 
 const app = express();
 const port = 3000;
@@ -17,12 +20,12 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'resources')));
-// app.use(session({
-//   secret: '123',
-//   resave: false,
-//   saveUninitialized: true
-// }));
-// app.use(flash());
+app.use(session({
+  secret: '123',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(flash());
 
 // middleware untuk load data
 const loadContactsData = async (req, res, next) => {
@@ -35,6 +38,19 @@ const loadContactsData = async (req, res, next) => {
     return res.status(500).render('400', { data: {title: '500', message: 'Internal Server Error'}});
   }
 };
+
+const nameExists = (data, name) => {
+  if (!data) return false; // Handle if data is undefined
+  return data.some(item => item.name.toLowerCase() === name.toLowerCase());
+}
+
+const validateEmail = (email) => {
+  return validator.isEmail(email);
+}
+
+const validatePhone = (mobile) => {
+  return validator.isMobilePhone(mobile, 'id-ID');
+}
 
 
 // Route handlers
@@ -62,12 +78,28 @@ app.get('/formContact', (req, res) => {
       title: 'Form Contact',
       message: 'Add a new contact on the page here',
   };
-  res.render('formContact', { data });
+  res.render('formContact', { data, messages: req.flash('error') });
 });
 
 // Rute POST untuk menambahkan kontak
-app.post('/formContact', async (req, res) => {
+app.post('/formContact', loadContactsData, async (req, res) => {
   const {name, email, mobile} = req.body;
+
+  if(nameExists(res.locals.contacts, name)) {
+    req.flash('error', 'Name already exists');
+    return res.redirect('/formContact');
+  }
+
+  if(!validateEmail(email)) {
+    req.flash('error', 'Email is not valid');
+    return res.redirect('/formContact');
+  }
+
+  if(!validatePhone(mobile)) {
+    req.flash('error', 'Phone is not valid');
+    return res.redirect('/formContact');
+  }
+
   try {
     await pool.query('INSERT INTO contacts (name, email, mobile) VALUES ($1, $2, $3)', [name, email, mobile]);
     res.redirect('/contact');
@@ -99,7 +131,7 @@ app.get('/update/:id', async (req, res) => {
       message: 'update contact on the page heres',
       contact: contact,
   };
-  res.render('updateContact', { data, layout:"layouts/mainLayout"});
+  res.render('updateContact', { data, messages: req.flash('error'), layout:"layouts/mainLayout"});
   } catch (err) {
     console.error('Error fetching contact from database:', err);
     return res.status(500).render('400', { data: { title: '500', message: 'Internal Server Error' } });
@@ -107,9 +139,24 @@ app.get('/update/:id', async (req, res) => {
 });
 
 // Rute POST untuk memperbarui kontak
-app.post('/update/:id', async (req, res) => {
+app.post('/update/:id', loadContactsData, async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const { name, email, mobile } = req.body;
+
+  if(nameExists(res.locals.contacts, name)) {
+    req.flash('error', 'Name already exists');
+    return res.redirect(`/update/${id}`);
+  }
+
+  if(!validateEmail(email)) {
+    req.flash('error', 'Email is not valid');
+    return res.redirect(`/update/${id}`);
+  }
+
+  if(!validatePhone(mobile)) {
+    req.flash('error', 'Phone is not valid');
+    return res.redirect(`/update/${id}`);
+  }
 
   try {
     const result = await pool.query('UPDATE contacts SET name = $1, email = $2, mobile = $3 WHERE id = $4', [name, email, mobile, id]);
