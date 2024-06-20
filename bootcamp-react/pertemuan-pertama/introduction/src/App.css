@@ -1,38 +1,41 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.text-h1 {
+  float: left;
   color: white;
+  padding-left: 5rem;
+  font-style: normal;
 }
 
-.App-link {
-  color: #61dafb;
+.text-h2 {
+  display: flex;
+  justify-content: center; /* Menempatkan konten di tengah secara horizontal */
+  align-items: center; /* Menempatkan konten di tengah secara vertikal */
+  height: 80vh; /* Mengisi tinggi layar penuh */
+  text-align: center;
+  font-size: xx-large;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  padding-right: 10rem;
+}
+
+li {
+  float: right;
+  margin: 1rem;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
 }
