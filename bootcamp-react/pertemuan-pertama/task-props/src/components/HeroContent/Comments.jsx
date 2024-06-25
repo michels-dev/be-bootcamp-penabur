@@ -6,7 +6,7 @@ class Comments extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
+      comments: this.generateFakeComments(),
     };
   }
 
@@ -17,23 +17,33 @@ class Comments extends React.Component {
       avatar: faker.image.avatar(),
       chat: faker.lorem.sentence(),
       date: new Date().toLocaleString(),
+      liked: 0,
     }));
     return data;
   };
 
-  render() {
-    const comments = this.generateFakeComments();
+  handleLike = (id) => {
+    this.setState((prevState) => ({
+      comments: prevState.comments.map((comment) =>
+        comment.id === id ? { ...comment, liked: comment.liked + 1 } : comment
+      ),
+    }));
+  };
 
+  render() {
     return (
       <div>
-        {comments.map((comment, index) => (
-          <div key={index}>
-          <HeroContent
-            avatar={comment.avatar}
-            name={comment.name}
-            chat={comment.chat}
-            date={comment.date}
-          />
+        <h2 className="card-title p-10">Comments</h2>
+        {this.state.comments.map((comment, index) => (
+          <div key={comment.id}>
+            <HeroContent
+              avatar={comment.avatar}
+              name={comment.name}
+              chat={comment.chat}
+              date={comment.date}
+              liked={comment.liked}
+              onLike={() => this.handleLike(comment.id)}
+            />
           </div>
         ))}
       </div>
