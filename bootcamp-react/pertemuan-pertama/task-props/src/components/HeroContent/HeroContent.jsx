@@ -4,7 +4,7 @@ import Liked from './Liked';
 class HeroContent extends React.Component {
   render() {
     return (
-      <div className="card bg-dark w-full text-dark text-sm font-GabaritoReguler">
+      <div className="card bg-dark w-full text-dark text-sm font-GabaritoReguler mt-2">
         <div className="card-body">
           <div className="chat chat-start mb-0">
             <div className="chat-image avatar">

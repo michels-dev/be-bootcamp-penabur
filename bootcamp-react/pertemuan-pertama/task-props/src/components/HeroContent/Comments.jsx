@@ -7,7 +7,24 @@ class Comments extends React.Component {
     super(props);
     this.state = {
       comments: this.generateFakeComments(),
+      date: new Date(),
     };
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(() => this.tick(),
+    100
+  );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      date: new Date(),
+    });
   }
 
   generateFakeComments = () => {
@@ -16,7 +33,6 @@ class Comments extends React.Component {
       name: faker.name.fullName(),
       avatar: faker.image.avatar(),
       chat: faker.lorem.sentence(),
-      date: new Date().toLocaleString(),
       liked: 0,
     }));
     return data;
@@ -40,7 +56,7 @@ class Comments extends React.Component {
               avatar={comment.avatar}
               name={comment.name}
               chat={comment.chat}
-              date={comment.date}
+              date={this.state.date.toLocaleString()}
               liked={comment.liked}
               onLike={() => this.handleLike(comment.id)}
             />
