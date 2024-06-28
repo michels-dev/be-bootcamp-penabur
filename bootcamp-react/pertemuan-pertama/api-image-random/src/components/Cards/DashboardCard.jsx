@@ -1,73 +1,69 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { Image } from 'primereact/image';
-import axios from 'axios';
+import { apiClientImages } from '../../api/apiClientImages';
+import Masonry from "react-responsive-masonry";
+import BtnSubmitImages from '../Buttons/BtnSubmitImages';
 
-class DashboardCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: "",
-      images: [],
-    };
+const DashboardCard = ({ title }) => {
+  const [query, setQuery] = useState("");
+  const [images, setImages] = useState([]);
+  const inputRef = useRef(null);
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
+  };
 
-  handleInputChange(event) {
-    this.setState({ query: event.target.value });
-  }
-
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { query } = this.state;
-    axios.get(`https://api.unsplash.com/search/photos?query=${query}&client_id=-4AAuvliWmJMVJwFbC_HhCq_tY_7Tr04jUu7RuHtIF0`)
-    .then(response => {
-      console.log(response.data.results);
-      this.setState({ images: response.data.results });
-    })
-    .catch(error =>{
-      console.error('Error fetching data', error);
-    });
-  }
+    const query = inputRef.current.value;
+    apiClientImages(query)
+      .then(images => {
+        setImages(images.slice(0, 10)); // Limit to 10 images
+      })
+      .catch(error => {
+        console.error('Error fetching data', error);
+      });
+  };
 
-  render() {
-    const { title } = this.props;
-    const { images } = this.state;
-    return (
-      <div className="card bg-base-100 w-full shadow-xl">
-        <div className="card-body">
-          <Card className="card-title" title={title} />
-          <form onSubmit={this.handleSubmit} className='flex'>
-            <InputText
-              value={this.state.query}
-              onChange={this.handleInputChange}
-              className='m-0 input input-bordered input-sm w-full max-w-xs mt-2'
-              placeholder='search image in here!'
-            />
-            <Button
-              label='Submit'
-              className='btn btn-outline btn-primary btn-sm mt-2 ml-4'
-              type='submit'
-            />
-          </form>
+  return (
+    <div className="card bg-base-100 w-full shadow-xl">
+      <div className="card-body">
+        <Card className="card-title" title={title} />
+        <form onSubmit={handleSubmit} className='flex'>
+          <InputText
+            ref={inputRef} // Assign the ref to the InputText component
+            value={query}
+            onChange={handleInputChange}
+            className='m-0 input input-bordered input-sm w-full max-w-xs mt-2'
+            placeholder='Search image here!'
+          />
+          <BtnSubmitImages onclick={handleSubmit} />
+        </form>
+        {images.length > 0 && ( // Conditionally render the image list
           <div className="image-list mt-4">
-            {images.map(image => (
-              <Image
-                key={image.id}
-                src={image.urls.small}
-                alt={image.alt_description}
-                style={{ margin: '10px', width: '200px' }}
-              />
-            ))}
+            <Masonry columnsCount={2} gutter="10px">
+              {images.map((image, index) => (
+                <div
+                  key={image.id}
+                  style={{
+                    height: index % 2 ? "200px" : "250px",
+                    backgroundImage: `url(${image.urls.small})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    margin: "10px",
+                    borderRadius: "8px"
+                  }}
+                />
+              ))}
+            </Masonry>
           </div>
-        </div>
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default DashboardCard;
+
