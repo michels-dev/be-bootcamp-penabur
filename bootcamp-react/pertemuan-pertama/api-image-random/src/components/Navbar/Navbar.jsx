@@ -1,11 +1,12 @@
 import { Image } from 'primereact/image';
+import { Link } from 'react-router-dom';
 
 export default function Navbar({ home, menuItems }) {
   return (
     <div className='navbar bg-white w-full flex px-4 h-8 top-0 text-dark items-center justify-between shadow-lg shadow-gray-200 font-GabaritoReguler'>
       <div className='flex-1'>
         <Image src='/src/assets/image/logo/darklogopenabur.png' className='w-8' />
-        <a href='' className='text-lg font-normal ml-2'>{home}</a>
+        <Link to='/' className='text-lg font-normal ml-2'/>{home}
       </div>
       <div className='flex'>
         <ul className='px-1'>

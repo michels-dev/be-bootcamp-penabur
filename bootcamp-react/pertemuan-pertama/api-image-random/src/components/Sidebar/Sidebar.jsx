@@ -17,19 +17,19 @@ export default function Sidebar() {
                                 >
                                 </Link>
                             </li>
+                            <li className="rounded-sm tooltip tooltip-right" data-tip='Videos'>
+                                <Link
+                                    to="/PageVideos"
+                                    className="flex items-center p-2 space-x-3 rounded-md pi pi-youtube btn btn-ghost w-14"
+                                >
+                                </Link>
+                            </li>
                             <li className="rounded-sm tooltip tooltip-right" data-tip='Table'>
-                                <a
-                                    href="#"
+                                <Link
+                                    to='/DataSiswa'
                                     className="flex items-center p-2 space-x-3 rounded-md pi pi-table btn btn-ghost w-14"
                                 >
-                                </a>
-                            </li>
-                            <li className="rounded-sm tooltip tooltip-right" data-tip='Form'>
-                                <a
-                                    href="#"
-                                    className="flex items-center p-2 space-x-3 rounded-md pi pi-briefcase btn btn-ghost w-14"
-                                >
-                                </a>
+                                </Link>
                             </li>
                             <li className="rounded-sm tooltip tooltip-right" data-tip='Logout'>
                                 <a

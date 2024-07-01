@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
 import { apiClientImages } from '../../api/apiClientImages';
 import Masonry from "react-responsive-masonry";
 import BtnSubmitImages from '../Buttons/BtnSubmitImages';
@@ -43,7 +42,7 @@ const DashboardCard = ({ title }) => {
         </form>
         {images.length > 0 && ( // Conditionally render the image list
           <div className="image-list mt-4">
-            <Masonry columnsCount={2} gutter="10px">
+            <Masonry columnsCount={3} gutter="10px">
               {images.map((image, index) => (
                 <div
                   key={image.id}
