@@ -24,10 +24,10 @@ export default function Sidebar() {
                                 >
                                 </Link>
                             </li>
-                            <li className="rounded-sm tooltip tooltip-right" data-tip='Table'>
+                            <li className="rounded-sm tooltip tooltip-right" data-tip='Jam'>
                                 <Link
-                                    to='/DataSiswa'
-                                    className="flex items-center p-2 space-x-3 rounded-md pi pi-table btn btn-ghost w-14"
+                                    to='/PageJam'
+                                    className="flex items-center p-2 space-x-3 rounded-md pi pi-clock btn btn-ghost w-14"
                                 >
                                 </Link>
                             </li>
