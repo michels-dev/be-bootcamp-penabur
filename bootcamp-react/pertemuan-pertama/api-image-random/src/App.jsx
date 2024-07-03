@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Dashboard from './pages/Dashboard/Dashboard';
 import PageVideos from './pages/Videos/PageVideos';
 import PageJam from './pages/Jam/PageJam';
+import Redux from './pages/Redux/Redux';
 
 function App() {
   const menuItems = [
@@ -23,6 +24,7 @@ function App() {
             <Route path='/' element={<Dashboard/>} />
             <Route path='/PageVideos' element={<PageVideos/>} />
             <Route path='/PageJam' element={<PageJam/>} />
+            <Route path='/Redux' element={<Redux/>} />
           </Routes>
           </div>
         </div>
