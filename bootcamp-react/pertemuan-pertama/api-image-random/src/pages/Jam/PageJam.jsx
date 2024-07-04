@@ -25,7 +25,7 @@ export default function PageJam() {
       <div className="flex flex-wrap justify-center mt-10">
         {cardData.map((card, index) => (
           <JamCard key={index} title={card.title} date={date.toLocaleString()} />
-        ))};
+        ))}
       </div>
     </>
   )

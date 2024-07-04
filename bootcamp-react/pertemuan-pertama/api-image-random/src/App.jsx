@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import PageVideos from './pages/Videos/PageVideos';
 import PageJam from './pages/Jam/PageJam';
 import Redux from './pages/Redux/Redux';
+import FormEmploye from './pages/Form/FormEmploye';
 
 function App() {
   const menuItems = [
@@ -25,6 +26,7 @@ function App() {
             <Route path='/PageVideos' element={<PageVideos/>} />
             <Route path='/PageJam' element={<PageJam/>} />
             <Route path='/Redux' element={<Redux/>} />
+            <Route path='/FormEmploye' element={<FormEmploye/>} />
           </Routes>
           </div>
         </div>

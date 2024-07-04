@@ -38,6 +38,13 @@ export default function Sidebar() {
                                 >
                                 </Link>
                             </li>
+                            <li className="rounded-sm tooltip tooltip-right" data-tip='Form Employe'>
+                                <Link
+                                    to='/FormEmploye'
+                                    className="flex items-center p-2 space-x-3 rounded-md pi pi-clone btn btn-ghost w-14"
+                                >
+                                </Link>
+                            </li>
                             <li className="rounded-sm tooltip tooltip-right" data-tip='Logout'>
                                 <a
                                     href="#"

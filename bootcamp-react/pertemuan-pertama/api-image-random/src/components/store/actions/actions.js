@@ -2,7 +2,7 @@ export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
 export const RESET = 'RESET';
 
-export const increment = () => ({
+export const increment = () => ({ 
   type: INCREMENT,
 });
 
